@@ -1,0 +1,1507 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Well Sharp Quiz</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: #f4f4f4;
+            direction: ltr;
+        }
+        .quiz-container {
+            max-width: 800px;
+            margin: auto;
+            background: white;
+            padding: 20px 40px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        .question-block {
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #eee;
+            position: relative;
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        h2 {
+            font-size: 1.1em;
+            color: #555;
+            margin-top: 0;
+            display: inline-block;
+        }
+        .options label {
+            display: block;
+            margin: 10px 0;
+            cursor: pointer;
+        }
+        .options input[type="radio"] {
+            margin-right: 10px;
+        }
+        .feedback {
+            font-weight: bold;
+            margin-left: 20px;
+        }
+        .correct {
+            color: green;
+        }
+        .incorrect {
+            color: red;
+        }
+        button {
+            display: block;
+            width: 200px;
+            padding: 10px;
+            margin: 20px auto;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1em;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .translate-button {
+            background-color: #6c757d;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 0.8em;
+            margin-left: 10px;
+        }
+        .translation-popup {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: #f9f9f9;
+            border: 1px solid #ccc;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            padding: 20px;
+            border-radius: 8px;
+            z-index: 1000;
+            max-width: 90%;
+            max-height: 80%;
+            overflow-y: auto;
+            direction: rtl;
+            font-size: 1.1em;
+        }
+        .translation-popup h3 {
+            margin-top: 0;
+            border-bottom: 1px solid #ddd;
+            padding-bottom: 10px;
+        }
+        .translation-popup p {
+            margin: 5px 0;
+        }
+        .close-button {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            font-size: 1.5em;
+            cursor: pointer;
+            color: #aaa;
+        }
+        .overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 999;
+        }
+    </style>
+</head>
+<body>
+
+<div class="quiz-container">
+    <h1>Well Sharp Quiz</h1>
+
+    <form id="quizForm">
+
+        <div class="question-block">
+            <h2>1. Which of the following is the most important reason for good handover procedures between crews during well control operations?</h2>
+            <button type="button" class="translate-button" onclick="showTranslation(1)">Show Arabic</button>
+            <div class="options">
+                <label><input type="radio" name="q1" value="A"> A. Ensure continuity in operations and pass on trend information to identify potential problems</label>
+                <label><input type="radio" name="q1" value="B"> B. It is a regulatory form that must be completed and turned into the local regulatory agency</label>
+                <label><input type="radio" name="q1" value="C"> C. Handover procedures are not considered important during well control operations</label>
+                <label><input type="radio" name="q1" value="D"> D. To allow blame to be assigned in the event of an incident during well kill operations</label>
+            </div>
+            <span id="feedback1" class="feedback"></span>
+        </div>
+
+        <div class="question-block">
+            <h2>2. Which of the following is the least important reason for a good handover during well control operations?</h2>
+            <button type="button" class="translate-button" onclick="showTranslation(2)">Show Arabic</button>
+            <div class="options">
+                <label><input type="radio" name="q2" value="A"> A. Allows blame to be assigned in the event of an incident</label>
+                <label><input type="radio" name="q2" value="B"> B. Allows discussion of any problems experienced up to this point</label>
+                <label><input type="radio" name="q2" value="C"> C. Ensures trends and parameters are known by the new crew</label>
+                <label><input type="radio" name="q2" value="D"> D. Ensures operations are continued with minimum disruption</label>
+            </div>
+            <span id="feedback2" class="feedback"></span>
+        </div>
+
+        <div class="question-block">
+            <h2>3. Which of the following statements is a good operating practice in a top-hole section that has the risk of gas bearing formations?</h2>
+            <button type="button" class="translate-button" onclick="showTranslation(3)">Show Arabic</button>
+            <div class="options">
+                <label><input type="radio" name="q3" value="A"> A. Never use a drill pipe float</label>
+                <label><input type="radio" name="q3" value="B"> B. Maintain high ROP</label>
+                <label><input type="radio" name="q3" value="C"> C. Regularly pump light sweeps</label>
+                <label><input type="radio" name="q3" value="D"> D. Control the rate of penetration</label>
+            </div>
+            <span id="feedback3" class="feedback"></span>
+        </div>
+
+        <div class="question-block">
+            <h2>4. What is good practice when increasing connection gas is observed?</h2>
+            <button type="button" class="translate-button" onclick="showTranslation(4)">Show Arabic</button>
+            <div class="options">
+                <label><input type="radio" name="q4" value="A"> A. Control ROP to keep a minimum number of connection gas events in the hole at a time</label>
+                <label><input type="radio" name="q4" value="B"> B. Increase WOB and RPM to reduce gas level in the mud</label>
+                <label><input type="radio" name="q4" value="C"> C. Reduce the mud viscosity to minimize swabbing</label>
+                <label><input type="radio" name="q4" value="D"> D. Increase the mud Viscosity</label>
+            </div>
+            <span id="feedback4" class="feedback"></span>
+        </div>
+
+        <div class="question-block">
+            <h2>5. Which of the following practices can lead to a surface hazard flow?</h2>
+            <button type="button" class="translate-button" onclick="showTranslation(5)">Show Arabic</button>
+            <div class="options">
+                <label><input type="radio" name="q5" value="A"> A. Pumping out of the well</label>
+                <label><input type="radio" name="q5" value="B"> B. Keeping the well full with a constant trip tank</label>
+                <label><input type="radio" name="q5" value="C"> C. Pumping a cement slurry with a short displacement time</label>
+                <label><input type="radio" name="q5" value="D"> D. Not properly filling the well while pulling pipe</label>
+            </div>
+            <span id="feedback5" class="feedback"></span>
+        </div>
+        
+        <div class="question-block">
+            <h2>6. While tripping into the hole at 6,000 ft, a flow check was positive. The rig procedure is to shut the well in using the soft shut in procedure. What is the correct shut-in procedure?</h2>
+            <button type="button" class="translate-button" onclick="showTranslation(6)">Show Arabic</button>
+            <div class="options">
+                <label><input type="radio" name="q6" value="A"> A. Open HCR valve and choke. Close BOP, stab full opening safety valve, close safety valve. Close choke</label>
+                <label><input type="radio" name="q6" value="B"> B. Stab full opening safety valve, open HCR valve and choke. Close BOP. Close choke. Close safety valve. Record pressures</label>
+                <label><input type="radio" name="q6" value="C"> C. Stab full opening safety valve, close safety valve, open HCR valve. Close BOP, close choke</label>
+                <label><input type="radio" name="q6" value="D"> D. Close BOP, stab full opening safety valve, close safety valve. Open choke, close choke, record pressures</label>
+            </div>
+            <span id="feedback6" class="feedback"></span>
+        </div>
+
+        <div class="question-block">
+            <h2>7. While tripping into the hole at 6,000 ft, a flow check was positive. The rig procedure is to shut the well in using the hard shut in procedure. What is the correct shut-in procedure?</h2>
+            <button type="button" class="translate-button" onclick="showTranslation(7)">Show Arabic</button>
+            <div class="options">
+                <label><input type="radio" name="q7" value="A"> A. Close BOP, stab full opening safety valve, close safety valve, open HCR valve, record pressures</label>
+                <label><input type="radio" name="q7" value="B"> B. Open HCR valve and choke, close BOP, stab full opening safety valve, close choke, record pressures</label>
+                <label><input type="radio" name="q7" value="C"> C. Stab full opening safety valve. Close safety valve, close BOP, open HCR valve, record pressures</label>
+                <label><input type="radio" name="q7" value="D"> D. Stab full opening safety valve, open HCR valve and choke, close BOP, close safety valve, record pressures</label>
+            </div>
+            <span id="feedback7" class="feedback"></span>
+        </div>
+        
+        <div class="question-block">
+            <h2>8. Who has the authority to shut in the well without waiting for permission?</h2>
+            <button type="button" class="translate-button" onclick="showTranslation(8)">Show Arabic</button>
+            <div class="options">
+                <label><input type="radio" name="q8" value="A"> A. Mud Engineer</label>
+                <label><input type="radio" name="q8" value="B"> B. Assistant Driller</label>
+                <label><input type="radio" name="q8" value="C"> C. Driller</label>
+                <label><input type="radio" name="q8" value="D"> D. Floorhand</label>
+            </div>
+            <span id="feedback8" class="feedback"></span>
+        </div>
+
+        <div class="question-block">
+            <h2>9. Why is the Driller given the authority to shut in the well without waiting for permission?</h2>
+            <button type="button" class="translate-button" onclick="showTranslation(9)">Show Arabic</button>
+            <div class="options">
+                <label><input type="radio" name="q9" value="A"> A. The driller can monitor the well flow to allow a minimum of a 10 barrel kick gain</label>
+                <label><input type="radio" name="q9" value="B"> B. The Driller is the only person trained to kill the well</label>
+                <label><input type="radio" name="q9" value="C"> C. The Driller has the “password” to activate the BOP controls</label>
+                <label><input type="radio" name="q9" value="D"> D. The Driller is given the authority to shut in the well without delay</label>
+            </div>
+            <span id="feedback9" class="feedback"></span>
+        </div>
+
+        <div class="question-block">
+            <h2>10. What is the safest and most reliable method to monitor for leaks across the BOP?</h2>
+            <button type="button" class="translate-button" onclick="showTranslation(10)">Show Arabic</button>
+            <div class="options">
+                <label><input type="radio" name="q10" value="A"> A. Visually verify by looking through the rotary table</label>
+                <label><input type="radio" name="q10" value="B"> B. Monitor for changes in the flow rate indicator</label>
+                <label><input type="radio" name="q10" value="C"> C. Line up the trip tank to monitor for flow above the closed BOP</label>
+                <label><input type="radio" name="q10" value="D"> D. Close the diverter and monitor the vent line</label>
+            </div>
+            <span id="feedback10" class="feedback"></span>
+        </div>
+
+        <div class="question-block">
+            <h2>11. The well has been shut in and pressures are stabilized. What is the first step the Driller must take?</h2>
+            <button type="button" class="translate-button" onclick="showTranslation(11)">Show Arabic</button>
+            <div class="options">
+                <label><input type="radio" name="q11" value="A"> A. Check drill pipe pressure to determine formation pressure</label>
+                <label><input type="radio" name="q11" value="B"> B. Record pit gain</label>
+                <label><input type="radio" name="q11" value="C"> C. Check to ensure the well is secure (no leak)</label>
+                <label><input type="radio" name="q11" value="D"> D. Calculate kill mud weight</label>
+            </div>
+            <span id="feedback11" class="feedback"></span>
+        </div>
+        
+        <div class="question-block">
+            <h2>12. What is the main reason for a pit drill?</h2>
+            <button type="button" class="translate-button" onclick="showTranslation(12)">Show Arabic</button>
+            <div class="options">
+                <label><input type="radio" name="q12" value="A"> A. To see how quickly the driller can line up to the trip tank</label>
+                <label><input type="radio" name="q12" value="B"> B. To test the pit and flow alarms</label>
+                <label><input type="radio" name="q12" value="C"> C. To ensure the crew is trained to kill the well</label>
+                <label><input type="radio" name="q12" value="D"> D. To ensure the crew is able to recognize and effectively respond to a kick</label>
+            </div>
+            <span id="feedback12" class="feedback"></span>
+        </div>
+
+        <div class="question-block">
+            <h2>13. What is the main reason for a trip drill?</h2>
+            <button type="button" class="translate-button" onclick="showTranslation(13)">Show Arabic</button>
+            <div class="options">
+                <label><input type="radio" name="q13" value="A"> A. To see how quickly the driller can line up to the choke manifold</label>
+                <label><input type="radio" name="q13" value="B"> B. To ensure the crew is able to recognize and effectively respond to a kick while tripping</label>
+                <label><input type="radio" name="q13" value="C"> C. To test the pit and trip tank flow alarms</label>
+                <label><input type="radio" name="q13" value="D"> D. To ensure the crew is trained to kill the well</label>
+            </div>
+            <span id="feedback13" class="feedback"></span>
+        </div>
+
+        <div class="question-block">
+            <h2>14. What is the purpose of a Choke drill?</h2>
+            <button type="button" class="translate-button" onclick="showTranslation(14)">Show Arabic</button>
+            <div class="options">
+                <label><input type="radio" name="q14" value="A"> A. To see how quickly the driller can close the choke in an emergency</label>
+                <label><input type="radio" name="q14" value="B"> B. To help the crew understand how the choke and well pressures react during a kill operation</label>
+                <label><input type="radio" name="q14" value="C"> C. To test that the choke is working properly before drilling out casing shoe</label>
+                <label><input type="radio" name="q14" value="D"> D. To ensure the crew is trained to properly line up for a reverse kill operation</label>
+            </div>
+            <span id="feedback14" class="feedback"></span>
+        </div>
+
+        <div class="question-block">
+            <h2>15. What precautions should be taken with the drilling fluid before commencing wireline operations?</h2>
+            <button type="button" class="translate-button" onclick="showTranslation(15)">Show Arabic</button>
+            <div class="options">
+                <label><input type="radio" name="q15" value="A"> A. The drilling fluid should be circulated and conditioned as the well will be static for an extended period</label>
+                <label><input type="radio" name="q15" value="B"> B. Due to the small diameter of the tools, no special precautions are required</label>
+                <label><input type="radio" name="q15" value="C"> C. Increase the mud weight before commencing wireline to compensate for the loss of ECD</label>
+                <label><input type="radio" name="q15" value="D"> D. The location of lost circulation material (LCM) pills should be noted at the depth of interest before commencing wireline operations</label>
+            </div>
+            <span id="feedback15" class="feedback"></span>
+        </div>
+
+        <div class="question-block">
+            <h2>16. Which of the following is not a warning sign of increasing formation fluid pressure?</h2>
+            <button type="button" class="translate-button" onclick="showTranslation(16)">Show Arabic</button>
+            <div class="options">
+                <label><input type="radio" name="q16" value="A"> A. Increased cuttings at the shaker</label>
+                <label><input type="radio" name="q16" value="B"> B. Increased shale density</label>
+                <label><input type="radio" name="q16" value="C"> C. Increased background gas</label>
+                <label><input type="radio" name="q16" value="D"> D. Decreased shale density</label>
+            </div>
+            <span id="feedback16" class="feedback"></span>
+        </div>
+
+        <div class="question-block">
+            <h2>17. What is a "flow-check"?</h2>
+            <button type="button" class="translate-button" onclick="showTranslation(17)">Show Arabic</button>
+            <div class="options">
+                <label><input type="radio" name="q17" value="A"> A. Monitoring the number of barrels that flow back to the pits on connections</label>
+                <label><input type="radio" name="q17" value="B"> B. Monitoring the well for flow after the pumps have been stopped</label>
+                <label><input type="radio" name="q17" value="C"> C. Monitoring the number of barrels it takes to keep the well full after pulling 10 stands</label>
+                <label><input type="radio" name="q17" value="D"> D. Monitoring the time it takes for the flow line to go back to the pits on connections</label>
+            </div>
+            <span id="feedback17" class="feedback"></span>
+        </div>
+
+        <div class="question-block">
+            <h2>18. When would you most likely perform a flow check?</h2>
+            <button type="button" class="translate-button" onclick="showTranslation(18)">Show Arabic</button>
+            <div class="options">
+                <label><input type="radio" name="q18" value="A"> A. After the driller has increased WOB</label>
+                <label><input type="radio" name="q18" value="B"> B. After a 5% increase in ROP</label>
+                <label><input type="radio" name="q18" value="C"> C. After taking a slow circulating rate</label>
+                <label><input type="radio" name="q18" value="D"> D. Before pulling the BHA past the stack</label>
+            </div>
+            <span id="feedback18" class="feedback"></span>
+        </div>
+
+        <div class="question-block">
+            <h2>19. When would you most likely perform a flow check?</h2>
+            <button type="button" class="translate-button" onclick="showTranslation(19)">Show Arabic</button>
+            <div class="options">
+                <label><input type="radio" name="q19" value="A"> A. After running BHA past the BOP</label>
+                <label><input type="radio" name="q19" value="B"> B. After the driller has increased WOB</label>
+                <label><input type="radio" name="q19" value="C"> C. Before running the bit past the BOP</label>
+                <label><input type="radio" name="q19" value="D"> D. Before beginning to pull out of the hole</label>
+            </div>
+            <span id="feedback19" class="feedback"></span>
+        </div>
+
+        <div class="question-block">
+            <h2>20. While pulling pipe out of the hole, the assistant driller (AD) notes that the hole is not filling correctly. After pulling five stands, the hole has taken no fluid from the trip tank. It should have taken three barrels. The AD notifies the Driller of the problem. What action should the Driller take?</h2>
+            <button type="button" class="translate-button" onclick="showTranslation(20)">Show Arabic</button>
+            <div class="options">
+                <label><input type="radio" name="q20" value="A"> A. Connect the kelly or topdrive and circulate bottoms-up</label>
+                <label><input type="radio" name="q20" value="B"> B. Immediately perform a flow check and shut in if required</label>
+                <label><input type="radio" name="q20" value="C"> C. Close the diverter and line up to the degassers</label>
+                <label><input type="radio" name="q20" value="D"> D. Pull five more stands and re-evaluate the situation</label>
+            </div>
+            <span id="feedback20" class="feedback"></span>
+        </div>
+
+        <div class="question-block">
+            <h2>21. You are drilling ahead and have started to experience partial losses. Which of the following is not a normal procedure to consider?</h2>
+            <button type="button" class="translate-button" onclick="showTranslation(21)">Show Arabic</button>
+            <div class="options">
+                <label><input type="radio" name="q21" value="A"> A. Adding Lost Circulation Material (LCM) to the mud</label>
+                <label><input type="radio" name="q21" value="B"> B. Circulating at a slower pump rate to reduce ECD</label>
+                <label><input type="radio" name="q21" value="C"> C. Shutting in the well and converting the mud system to brine</label>
+                <label><input type="radio" name="q21" value="D"> D. Considering a change in mud properties to reduce friction or hydrostatic losses</label>
+            </div>
+            <span id="feedback21" class="feedback"></span>
+        </div>
+
+        <div class="question-block">
+            <h2>22. The wireline crew has informed the driller that they are pulling the wireline tools from the hole. A short time later the driller sees a gain in the trip tank. What has most likely happened?</h2>
+            <button type="button" class="translate-button" onclick="showTranslation(22)">Show Arabic</button>
+            <div class="options">
+                <label><input type="radio" name="q22" value="A"> A. The gain is due to mud expansion from the well being static for an extended time during wireline</label>
+                <label><input type="radio" name="q22" value="B"> B. The wireline tools were probably pulled too fast causing swabbing</label>
+                <label><input type="radio" name="q22" value="C"> C. The wireline operator pumped fluid so the wireline could be pulled dry and save some time</label>
+                <label><input type="radio" name="q22" value="D"> D. Nothing has happened, it is normal to see a gain due to displacement when pulling wireline tools</label>
+            </div>
+            <span id="feedback22" class="feedback"></span>
+        </div>
+        
+        <div class="question-block">
+            <h2>23. The mud engineer starts the degasser and desilter. What will happen to the flow rate out of the well?</h2>
+            <button type="button" class="translate-button" onclick="showTranslation(23)">Show Arabic</button>
+            <div class="options">
+                <label><input type="radio" name="q23" value="A"> A. The flow rate will increase after two to three minutes</label>
+                <label><input type="radio" name="q23" value="B"> B. The flow rate will decrease after two to three minutes</label>
+                <label><input type="radio" name="q23" value="C"> C. The flow rate will stay the same</label>
+            </div>
+            <span id="feedback23" class="feedback"></span>
+        </div>
+
+        <div class="question-block">
+            <h2>24. Which kick indicator is normally detected first?</h2>
+            <button type="button" class="translate-button" onclick="showTranslation(24)">Show Arabic</button>
+            <div class="options">
+                <label><input type="radio" name="q24" value="A"> A. Increase in pit level</label>
+                <label><input type="radio" name="q24" value="B"> B. Increase in pump pressure</label>
+                <label><input type="radio" name="q24" value="C"> C. Increase in flow rate</label>
+                <label><input type="radio" name="q24" value="D"> D. Increase in trip tank</label>
+            </div>
+            <span id="feedback24" class="feedback"></span>
+        </div>
+
+        <div class="question-block">
+            <h2>25. Which of the following conditions makes it difficult to detect a kick using a PVT?</h2>
+            <button type="button" class="translate-button" onclick="showTranslation(25)">Show Arabic</button>
+            <div class="options">
+                <label><input type="radio" name="q25" value="A"> A. When you bypass the solids control pits</label>
+                <label><input type="radio" name="q25" value="B"> B. When you allow the mud to flood over the shakers</label>
+                <label><input type="radio" name="q25" value="C"> C. When you reduce the pit level alarm settings from 10 barrels to 5 barrels</label>
+                <label><input type="radio" name="q25" value="D"> D. When you keep active mud system transfers to a minimum while drilling</label>
+            </div>
+            <span id="feedback25" class="feedback"></span>
+        </div>
+        
+        <div class="question-block">
+            <h2>26. While drilling and experiencing high levels of connection gas, a power outage occurs eliminating the ability to circulate and rotate. What is the safest action to take?</h2>
+            <button type="button" class="translate-button" onclick="showTranslation(26)">Show Arabic</button>
+            <div class="options">
+                <label><input type="radio" name="q26" value="A"> A. Line up to the trip tank and monitor the well</label>
+                <label><input type="radio" name="q26" value="B"> B. Pull to the casing shoe and work the pipe up and down</label>
+                <label><input type="radio" name="q26" value="C"> C. Work the pipe up and down to prevent stuck pipe</label>
+                <label><input type="radio" name="q26" value="D"> D. Space out and shut in and monitor for any pressure buildup in the well</label>
+            </div>
+            <span id="feedback26" class="feedback"></span>
+        </div>
+
+        <div class="question-block">
+            <h2>27. The results of a flow check were inconclusive due to the small volume of returns from the hole. What is the most accurate way to determine if the well is flowing?</h2>
+            <button type="button" class="translate-button" onclick="showTranslation(27)">Show Arabic</button>
+            <div class="options">
+                <label><input type="radio" name="q27" value="A"> A. Pull 5 stands and monitor the well to see if it fills</label>
+                <label><input type="radio" name="q27" value="B"> B. Shut in the well and line up through the mud gas separator and monitor for flow at the shakers</label>
+                <label><input type="radio" name="q27" value="C"> C. Line up to the trip tank and monitor for gains or losses</label>
+                <label><input type="radio" name="q27" value="D"> D. Close the diverter and monitor for flow from the vent line</label>
+            </div>
+            <span id="feedback27" class="feedback"></span>
+        </div>
+
+        <div class="question-block">
+            <h2>28. When should the well be monitored using the pit level and flow rate instruments?</h2>
+            <button type="button" class="translate-button" onclick="showTranslation(28)">Show Arabic</button>
+            <div class="options">
+                <label><input type="radio" name="q28" value="A"> A. When running pipe in the hole</label>
+                <label><input type="radio" name="q28" value="B"> B. During connections</label>
+                <label><input type="radio" name="q28" value="C"> C. Only when drilling an open hole</label>
+                <label><input type="radio" name="q28" value="D"> D. Any time a barrier has the potential to fail</label>
+            </div>
+            <span id="feedback28" class="feedback"></span>
+        </div>
+
+        <div class="question-block">
+            <h2>29. What is a transition zone?</h2>
+            <button type="button" class="translate-button" onclick="showTranslation(29)">Show Arabic</button>
+            <div class="options">
+                <label><input type="radio" name="q29" value="A"> A. A change in formation from high permeability to low permeability</label>
+                <label><input type="radio" name="q29" value="B"> B. The position in the reservoir where gas transitions to oil or water</label>
+                <label><input type="radio" name="q29" value="C"> C. The depth where formations are strong enough to shut in with a BOP</label>
+                <label><input type="radio" name="q29" value="D"> D. A section of the formation where the formation pressure changes</label>
+            </div>
+            <span id="feedback29" class="feedback"></span>
+        </div>
+
+        <div class="question-block">
+            <h2>30. When drilling into a transition zone to an abnormally pressured formation, what changes might you expect to see in the mud?</h2>
+            <button type="button" class="translate-button" onclick="showTranslation(30)">Show Arabic</button>
+            <div class="options">
+                <label><input type="radio" name="q30" value="A"> A. Decreased mud filtrate</label>
+                <label><input type="radio" name="q30" value="B"> B. Increased salinity in a fresh water mud</label>
+                <label><input type="radio" name="q30" value="C"> C. Increased mud weight</label>
+                <label><input type="radio" name="q30" value="D"> D. Decreased gas content</label>
+            </div>
+            <span id="feedback30" class="feedback"></span>
+        </div>
+        
+        <div class="question-block">
+            <h2>31. Which of the following procedures should be taken when drilling through a transition zone?</h2>
+            <button type="button" class="translate-button" onclick="showTranslation(31)">Show Arabic</button>
+            <div class="options">
+                <label><input type="radio" name="q31" value="A"> A. Decrease WOB</label>
+                <label><input type="radio" name="q31" value="B"> B. Decrease RPM</label>
+                <label><input type="radio" name="q31" value="C"> C. Increase the time between mud weight checks</label>
+                <label><input type="radio" name="q31" value="D"> D. Increase crew awareness to warning signs</label>
+            </div>
+            <span id="feedback31" class="feedback"></span>
+        </div>
+
+        <div class="question-block">
+            <h2>32. Why is it important to examine the mud as it flows across the shakers?</h2>
+            <button type="button" class="translate-button" onclick="showTranslation(32)">Show Arabic</button>
+            <div class="options">
+                <label><input type="radio" name="q32" value="A"> A. The type and quantity of cuttings and cavings can indicate wellbore conditions</label>
+                <label><input type="radio" name="q32" value="B"> B. The type of cuttings determines the required mud weight</label>
+                <label><input type="radio" name="q32" value="C"> C. The type of cuttings determines if the degasser or centrifuge should be turned on</label>
+                <label><input type="radio" name="q32" value="D"> D. The more cuttings and cavings at the shaker, the more indicative of good drilling practices</label>
+            </div>
+            <span id="feedback32" class="feedback"></span>
+        </div>
+        
+        <div class="question-block">
+            <h2>33. What is the primary reason for measuring the weight and viscosity as it exits the well?</h2>
+            <button type="button" class="translate-button" onclick="showTranslation(33)">Show Arabic</button>
+            <div class="options">
+                <label><input type="radio" name="q33" value="A"> A. It provides information about the effects of the wellbore on the mud</label>
+                <label><input type="radio" name="q33" value="B"> B. It tells the mud engineer when to run mud tests</label>
+                <label><input type="radio" name="q33" value="C"> C. It makes sure the mud program is being followed in the well plan</label>
+                <label><input type="radio" name="q33" value="D"> D. It ensures compliance with company policy</label>
+            </div>
+            <span id="feedback33" class="feedback"></span>
+        </div>
+
+        <div class="question-block">
+            <h2>34. Why is it important for crew members to immediately inform the Driller if they see any potential well control problems?</h2>
+            <button type="button" class="translate-button" onclick="showTranslation(34)">Show Arabic</button>
+            <div class="options">
+                <label><input type="radio" name="q34" value="A"> A. To inform the driller of an increase in ROP</label>
+                <label><input type="radio" name="q34" value="B"> B. To help the driller identify a kick and work to minimize the size of the kick</label>
+                <label><input type="radio" name="q34" value="C"> C. To inform the driller of an increase in tripping speed</label>
+                <label><input type="radio" name="q34" value="D"> D. To allow the driller to turn on the pit and flow alarms</label>
+            </div>
+            <span id="feedback34" class="feedback"></span>
+        </div>
+
+        <div class="question-block">
+            <h2>35. What is the correct definition of Porosity?</h2>
+            <button type="button" class="translate-button" onclick="showTranslation(35)">Show Arabic</button>
+            <div class="options">
+                <label><input type="radio" name="q35" value="A"> A. The volume of void space in a rock expressed as a percentage</label>
+                <label><input type="radio" name="q35" value="B"> B. The pressure of the fluid in the void space</label>
+                <label><input type="radio" name="q35" value="C"> C. The proportion of solid rock in the formation</label>
+                <label><input type="radio" name="q35" value="D"> D. The ability of formation fluids to move through a rock</label>
+            </div>
+            <span id="feedback35" class="feedback"></span>
+        </div>
+        
+        <div class="question-block">
+            <h2>36. What is the percentage of void space in a formation?</h2>
+            <button type="button" class="translate-button" onclick="showTranslation(36)">Show Arabic</button>
+            <div class="options">
+                <label><input type="radio" name="q36" value="A"> A. Permeability</label>
+                <label><input type="radio" name="q36" value="B"> B. Low pressure formation</label>
+                <label><input type="radio" name="q36" value="C"> C. Porosity</label>
+                <label><input type="radio" name="q36" value="D"> D. Shale density</label>
+            </div>
+            <span id="feedback36" class="feedback"></span>
+        </div>
+        
+        <div class="question-block">
+            <h2>37. What is the term for "an undesirable influx of formation fluids into the wellbore"?</h2>
+            <button type="button" class="translate-button" onclick="showTranslation(37)">Show Arabic</button>
+            <div class="options">
+                <label><input type="radio" name="q37" value="A"> A. Fractured formation</label>
+                <label><input type="radio" name="q37" value="B"> B. Lost circulation</label>
+                <label><input type="radio" name="q37" value="C"> C. Kick</label>
+                <label><input type="radio" name="q37" value="D"> D. Blowout</label>
+            </div>
+            <span id="feedback37" class="feedback"></span>
+        </div>
+        
+        <div class="question-block">
+            <h2>38. What is the correct definition of Permeability?</h2>
+            <button type="button" class="translate-button" onclick="showTranslation(38)">Show Arabic</button>
+            <div class="options">
+                <label><input type="radio" name="q38" value="A"> A. The proportion of solid rock in the formation</label>
+                <label><input type="radio" name="q38" value="B"> B. The ability of formation fluids to move through a rock</label>
+                <label><input type="radio" name="q38" value="C"> C. The pressure of the fluid in the void space</label>
+                <label><input type="radio" name="q38" value="D"> D. The density of the formation fluids</label>
+            </div>
+            <span id="feedback38" class="feedback"></span>
+        </div>
+        
+        <div class="question-block">
+            <h2>39. Which of the following would NOT increase the risk of a wellbore "surge" while running casing?</h2>
+            <button type="button" class="translate-button" onclick="showTranslation(39)">Show Arabic</button>
+            <div class="options">
+                <label><input type="radio" name="q39" value="A"> A. A faster running speed</label>
+                <label><input type="radio" name="q39" value="B"> B. A tighter annulus between the casing and the hole</label>
+                <label><input type="radio" name="q39" value="C"> C. A mud with high gel strength</label>
+                <label><input type="radio" name="q39" value="D"> D. A lower casing grade</label>
+            </div>
+            <span id="feedback39" class="feedback"></span>
+        </div>
+
+        <div class="question-block">
+            <h2>40. The drilling program requires a Formation Integrity Test (FIT) to 15.2 ppg equivalent mud weight (EMW) at the casing shoe. Shoe depth = 4,000 ft (TVD); 5,500 ft (MD). Mud weight = 9.5 ppg. What surface pressure is required to test the shoe to 15.2 ppg EMW?</h2>
+            <button type="button" class="translate-button" onclick="showTranslation(40)">Show Arabic</button>
+            <div class="options">
+                <label><input type="radio" name="q40" value="A"> A. 1,186 psi</label>
+                <label><input type="radio" name="q40" value="B"> B. 1,976 psi</label>
+                <label><input type="radio" name="q40" value="C"> C. 2,382 psi</label>
+                <label><input type="radio" name="q40" value="D"> D. 1,630 psi</label>
+            </div>
+            <span id="feedback40" class="feedback"></span>
+        </div>
+
+        <div class="question-block">
+            <h2>41. On the kill sheet, why do we calculate the open hole volume from the bit to the shoe?</h2>
+            <button type="button" class="translate-button" onclick="showTranslation(41)">Show Arabic</button>
+            <div class="options">
+                <label><input type="radio" name="q41" value="A"> A. To know when the kick has entered the casing</label>
+                <label><input type="radio" name="q41" value="B"> B. It is part of the exercise to calculate annular stage volumes</label>
+                <label><input type="radio" name="q41" value="C"> C. This is used to estimate the maximum casing pressure</label>
+                <label><input type="radio" name="q41" value="D"> D. It is useful in calculating how much gas expansion will occur</label>
+            </div>
+            <span id="feedback41" class="feedback"></span>
+        </div>
+
+        <div class="question-block">
+            <h2>42. You have returned to the float shoe after running and cementing casing. The instructions are to circulate the well clean before drilling out the shoe. Why must you monitor pit levels and flow while doing this?</h2>
+            <button type="button" class="translate-button" onclick="showTranslation(42)">Show Arabic</button>
+            <div class="options">
+                <label><input type="radio" name="q42" value="A"> A. To monitor for thermal expansion of the cement</label>
+                <label><input type="radio" name="q42" value="B"> B. To monitor for losses as any excess cement is being cleaned from the well</label>
+                <label><input type="radio" name="q42" value="C"> C. To verify that the float shoe is not leaking</label>
+                <label><input type="radio" name="q42" value="D"> D. To determine when the bottoms-up circulation is complete</label>
+            </div>
+            <span id="feedback42" class="feedback"></span>
+        </div>
+
+        <div class="question-block">
+            <h2>43. While circulating a gas kick out inside the casing. The casing pressure is approaching MAASP, what should you do?</h2>
+            <button type="button" class="translate-button" onclick="showTranslation(43)">Show Arabic</button>
+            <div class="options">
+                <label><input type="radio" name="q43" value="A"> A. Stop the kill procedures and bleed off pressure to MAASP thereby reducing the risk of fracturing the formation</label>
+                <label><input type="radio" name="q43" value="B"> B. Continue the kill procedures, but use automatic MAASP control to prevent fracturing the formation</label>
+                <label><input type="radio" name="q43" value="C"> C. Continue the kill procedure, but open the choke as required to hold the casing pressure equal to MAASP thereby risking additional influx</label>
+                <label><input type="radio" name="q43" value="D"> D. Continue the correct kill procedure, as exceeding MAASP will not cause a formation fracture</label>
+            </div>
+            <span id="feedback43" class="feedback"></span>
+        </div>
+
+        <div class="question-block">
+            <h2>44. Which of the following practices should be considered when performing a Leak-off Test (L.O.T.)?</h2>
+            <button type="button" class="translate-button" onclick="showTranslation(44)">Show Arabic</button>
+            <div class="options">
+                <label><input type="radio" name="q44" value="A"> A. Always use water, pump fast and shut in when the pressure and volume change direction</label>
+                <label><input type="radio" name="q44" value="B"> B. Determine injection rate first using known mud weight, and pump at a fast rate</label>
+                <label><input type="radio" name="q44" value="C"> C. Pump slowly, use known mud weight and shut in when the pressure and volume change direction</label>
+                <label><input type="radio" name="q44" value="D"> D. Displace the drill string to base oil or water, shut in the well and pump slowly until the formation starts to take fluid</label>
+            </div>
+            <span id="feedback44" class="feedback"></span>
+        </div>
+
+        <div class="question-block">
+            <h2>45. What will happen to MAASP if Mud Weight is decreased?</h2>
+            <button type="button" class="translate-button" onclick="showTranslation(45)">Show Arabic</button>
+            <div class="options">
+                <label><input type="radio" name="q45" value="A"> A. MAASP will increase</label>
+                <label><input type="radio" name="q45" value="B"> B. MAASP will stay the same</label>
+                <label><input type="radio" name="q45" value="C"> C. MAASP will decrease</label>
+            </div>
+            <span id="feedback45" class="feedback"></span>
+        </div>
+
+        <div class="question-block">
+            <h2>46. Surface Leak off Pressure = 1000 psi; TVD of Casing Shoe = 7,500; Mud Weight = 11 ppg. What is the fracture pressure at the casing shoe?</h2>
+            <button type="button" class="translate-button" onclick="showTranslation(46)">Show Arabic</button>
+            <div class="options">
+                <label><input type="radio" name="q46" value="A"> A. 4200psi</label>
+                <label><input type="radio" name="q46" value="B"> B. 6100psi</label>
+                <label><input type="radio" name="q46" value="C"> C. 5425psi</label>
+                <label><input type="radio" name="q46" value="D"> D. 5290psi</label>
+            </div>
+            <span id="feedback46" class="feedback"></span>
+        </div>
+
+        <div class="question-block">
+            <h2>47. What affects the MAASP?</h2>
+            <button type="button" class="translate-button" onclick="showTranslation(47)">Show Arabic</button>
+            <div class="options">
+                <label><input type="radio" name="q47" value="A"> A. The maximum pump pressure</label>
+                <label><input type="radio" name="q47" value="B"> B. The gel strength of the mud</label>
+                <label><input type="radio" name="q47" value="C"> C. The mud weight in the hole</label>
+                <label><input type="radio" name="q47" value="D"> D. The viscosity and water loss of the mud</label>
+            </div>
+            <span id="feedback47" class="feedback"></span>
+        </div>
+
+        <div class="question-block">
+            <h2>48. You are drilling a section of the well with a low kick tolerance. What procedure can be implemented?</h2>
+            <button type="button" class="translate-button" onclick="showTranslation(48)">Show Arabic</button>
+            <div class="options">
+                <label><input type="radio" name="q48" value="A"> A. Increase mud viscosity to lessen the chance of a kick</label>
+                <label><input type="radio" name="q48" value="B"> B. Trip at an increased trip speed and perform 15-minute flow checks at all drill breaks</label>
+                <label><input type="radio" name="q48" value="C"> C. Take slow circulating rate pressures at faster SPM than normal</label>
+                <label><input type="radio" name="q48" value="D"> D. Increase vigilance for kick indicators</label>
+            </div>
+            <span id="feedback48" class="feedback"></span>
+        </div>
+
+        <div class="question-block">
+            <h2>49. You are drilling a section of the well with a kick tolerance window that indicates the maximum allowable kick size is less than what the rig has shown it can successfully detect and shut in. What action can be taken?</h2>
+            <button type="button" class="translate-button" onclick="showTranslation(49)">Show Arabic</button>
+            <div class="options">
+                <label><input type="radio" name="q49" value="A"> A. Place a cement plug and sidetrack</label>
+                <label><input type="radio" name="q49" value="B"> B. Consider setting a liner</label>
+                <label><input type="radio" name="q49" value="C"> C. Pull the bit to the casing shoe as fast as possible</label>
+                <label><input type="radio" name="q49" value="D"> D. Continue drilling with caution, the kick tolerance will improve with depth</label>
+            </div>
+            <span id="feedback49" class="feedback"></span>
+        </div>
+
+        <div class="question-block">
+            <h2>50. Which of the following is the definition of kick tolerance?</h2>
+            <button type="button" class="translate-button" onclick="showTranslation(50)">Show Arabic</button>
+            <div class="options">
+                <label><input type="radio" name="q50" value="A"> A. The maximum gas kick volume at a given depth that can be successfully shut in and circulated out without exceeding the weakest point fracture pressure</label>
+                <label><input type="radio" name="q50" value="B"> B. The maximum gas kick volume for a specific kick intensity at a given depth that can be successfully shut in and circulated out without exceeding the weakest point fracture pressure</label>
+                <label><input type="radio" name="q50" value="C"> C. The minimum kick intensity, for a specific gas kick volume that can be successfully shut in and circulated out without exceeding the weakest point fracture pressure</label>
+            </div>
+            <span id="feedback50" class="feedback"></span>
+        </div>
+
+        <div class="question-block">
+            <h2>51. What is meant by a 25-barrel kick tolerance?</h2>
+            <button type="button" class="translate-button" onclick="showTranslation(51)">Show Arabic</button>
+            <div class="options">
+                <label><input type="radio" name="q51" value="A"> A. Based on a selected kick intensity, a 25-barrel gas kick is the maximum kick that can be shut in and circulated out without fracturing the weakest point in the well</label>
+                <label><input type="radio" name="q51" value="B"> B. Based on a selected kick intensity, a 25-barrel brine kick is the maximum kick that can be shut in and bullheaded</label>
+                <label><input type="radio" name="q51" value="C"> C. Based on a selected kick intensity, a 25-barrel brine kick is the maximum kick that can be circulated out without bursting the casing at the surface</label>
+                <label><input type="radio" name="q51" value="D"> D. Based on a selected kick intensity, a 25-barrel gas kick is the maximum kick that can be circulated out without bursting the casing at the surface</label>
+            </div>
+            <span id="feedback51" class="feedback"></span>
+        </div>
+        
+        <div class="question-block">
+            <h2>52. After setting and cementing casing, the plan is to remove the BOP stack. When is it safe to begin this operation?</h2>
+            <button type="button" class="translate-button" onclick="showTranslation(52)">Show Arabic</button>
+            <div class="options">
+                <label><input type="radio" name="q52" value="A"> A. The number of minutes equal to the cement yield per sack multiplied by the cement density</label>
+                <label><input type="radio" name="q52" value="B"> B. When the planned waiting on cement time is complete and the well has been static</label>
+                <label><input type="radio" name="q52" value="C"> C. The well has not flowed for 45 minutes since displacing the cement to position</label>
+                <label><input type="radio" name="q52" value="D"> D. The cement has reached a compressive strength of at least 100 psi</label>
+            </div>
+            <span id="feedback52" class="feedback"></span>
+        </div>
+
+        <div class="question-block">
+            <h2>53. You have set a liner and are now circulating the hole clean before drilling out the liner shoe. Where are the potential leak paths that would allow formation fluid to enter the well?</h2>
+            <button type="button" class="translate-button" onclick="showTranslation(53)">Show Arabic</button>
+            <div class="options">
+                <label><input type="radio" name="q53" value="A"> A. The drill string</label>
+                <label><input type="radio" name="q53" value="B"> B. The BOP open chamber</label>
+                <label><input type="radio" name="q53" value="C"> C. The BOP closed chamber</label>
+                <label><input type="radio" name="q53" value="D"> D. A leaking liner top or shoe</label>
+            </div>
+            <span id="feedback53" class="feedback"></span>
+        </div>
+
+        <div class="question-block">
+            <h2>54. What is a positive test?</h2>
+            <button type="button" class="translate-button" onclick="showTranslation(54)">Show Arabic</button>
+            <div class="options">
+                <label><input type="radio" name="q54" value="A"> A. A test on a barrier where the pressure applied on the formation side of the barrier is greater than the pressure on the surface side of the barrier</label>
+                <label><input type="radio" name="q54" value="B"> B. A test on a barrier where the pressure on the formation side of the barrier is less than the pressure on the surface side of the barrier</label>
+                <label><input type="radio" name="q54" value="C"> C. A test on a barrier where the pressure on the formation side of the barrier is equal to the pressure on the surface side of the barrier</label>
+            </div>
+            <span id="feedback54" class="feedback"></span>
+        </div>
+
+        <div class="question-block">
+            <h2>55. You are conducting a negative test (API: Inflow Test). The drill string has been displaced to light fluid and the pressure bled off the drill pipe. The volume that flowed back from the drill pipe surface pressure bleed off was three times larger than calculated. Pressure returns on the standpipe when the drill pipe is closed. What is your assessment of the test?</h2>
+            <button type="button" class="translate-button" onclick="showTranslation(55)">Show Arabic</button>
+            <div class="options">
+                <label><input type="radio" name="q55" value="A"> A. Not enough information to make an informed decision</label>
+                <label><input type="radio" name="q55" value="B"> B. Test successful. Continue with planned operations</label>
+                <label><input type="radio" name="q55" value="C"> C. Test failed: shut in the well and notify management</label>
+            </div>
+            <span id="feedback55" class="feedback"></span>
+        </div>
+        
+        <div class="question-block">
+            <h2>56. If a kick is taken while tripping, which type of barrier has failed?</h2>
+            <button type="button" class="translate-button" onclick="showTranslation(56)">Show Arabic</button>
+            <div class="options">
+                <label><input type="radio" name="q56" value="A"> A. Primary barrier (hydrostatic)</label>
+                <label><input type="radio" name="q56" value="B"> B. Temporary mechanical barrier</label>
+                <label><input type="radio" name="q56" value="C"> C. Permanent mechanical barrier</label>
+                <label><input type="radio" name="q56" value="D"> D. Cement barrier</label>
+            </div>
+            <span id="feedback56" class="feedback"></span>
+        </div>
+
+        <div class="question-block">
+            <h2>57. Which of the following is not a way to verify a well barrier?</h2>
+            <button type="button" class="translate-button" onclick="showTranslation(57)">Show Arabic</button>
+            <div class="options">
+                <label><input type="radio" name="q57" value="A"> A. Flow test (negative test)</label>
+                <label><input type="radio" name="q57" value="B"> B. Tagging the weight set</label>
+                <label><input type="radio" name="q57" value="C"> C. Leak-off test</label>
+                <label><input type="radio" name="q57" value="D"> D. Positive pressure test</label>
+            </div>
+            <span id="feedback57" class="feedback"></span>
+        </div>
+        
+        <div class="question-block">
+            <h2>58. What is the minimum number of barriers that are typically required to be in place at any stage of operations?</h2>
+            <button type="button" class="translate-button" onclick="showTranslation(58)">Show Arabic</button>
+            <div class="options">
+                <label><input type="radio" name="q58" value="A"> A. Three</label>
+                <label><input type="radio" name="q58" value="B"> B. Two</label>
+                <label><input type="radio" name="q58" value="C"> C. Four</label>
+                <label><input type="radio" name="q58" value="D"> D. One</label>
+            </div>
+            <span id="feedback58" class="feedback"></span>
+        </div>
+
+        <div class="question-block">
+            <h2>59. When should the well be monitored using the pit level and flow rate instruments?</h2>
+            <button type="button" class="translate-button" onclick="showTranslation(59)">Show Arabic</button>
+            <div class="options">
+                <label><input type="radio" name="q59" value="A"> A. Only when drilling an open hole</label>
+                <label><input type="radio" name="q59" value="B"> B. When running pipe in the hole</label>
+                <label><input type="radio" name="q59" value="C"> C. Any time a barrier has the potential to fail</label>
+                <label><input type="radio" name="q59" value="D"> D. During connections</label>
+            </div>
+            <span id="feedback59" class="feedback"></span>
+        </div>
+
+        <div class="question-block">
+            <h2>60. Which of the following is not classified as a barrier?</h2>
+            <button type="button" class="translate-button" onclick="showTranslation(60)">Show Arabic</button>
+            <div class="options">
+                <label><input type="radio" name="q60" value="A"> A. Hydrostatic mud pressure</label>
+                <label><input type="radio" name="q60" value="B"> B. Drill pipe float</label>
+                <label><input type="radio" name="q60" value="C"> C. Pipe ram</label>
+                <label><input type="radio" name="q60" value="D"> D. Full opening safety valve</label>
+            </div>
+            <span id="feedback60" class="feedback"></span>
+        </div>
+
+        <button type="button" onclick="checkAnswers()">Check Answers</button>
+    </form>
+</div>
+
+<div class="overlay" onclick="closeTranslation()"></div>
+<div class="translation-popup" id="translationPopup">
+    <span class="close-button" onclick="closeTranslation()">&times;</span>
+    <div id="popup-content"></div>
+</div>
+
+<script>
+    const correctAnswers = {
+        q1: 'A',
+        q2: 'A',
+        q3: 'D',
+        q4: 'A',
+        q5: 'D',
+        q6: 'C',
+        q7: 'A',
+        q8: 'C',
+        q9: 'D',
+        q10: 'C',
+        q11: 'C',
+        q12: 'D',
+        q13: 'B',
+        q14: 'B',
+        q15: 'A',
+        q16: 'B',
+        q17: 'B',
+        q18: 'D',
+        q19: 'D',
+        q20: 'B',
+        q21: 'C',
+        q22: 'B',
+        q23: 'B',
+        q24: 'C',
+        q25: 'B',
+        q26: 'D',
+        q27: 'C',
+        q28: 'D',
+        q29: 'D',
+        q30: 'B',
+        q31: 'D',
+        q32: 'A',
+        q33: 'A',
+        q34: 'B',
+        q35: 'A',
+        q36: 'C',
+        q37: 'C',
+        q38: 'B',
+        q39: 'D',
+        q40: 'A',
+        q41: 'C',
+        q42: 'C',
+        q43: 'B',
+        q44: 'C',
+        q45: 'C',
+        q46: 'D',
+        q47: 'C',
+        q48: 'D',
+        q49: 'B',
+        q50: 'B',
+        q51: 'A',
+        q52: 'B',
+        q53: 'D',
+        q54: 'A',
+        q55: 'C',
+        q56: 'A',
+        q57: 'B',
+        q58: 'B',
+        q59: 'C',
+        q60: 'D'
+    };
+
+    const translations = {
+        1: {
+            question: "ما هو السبب الأكثر أهمية لإجراءات التسليم الجيدة بين الأطقم أثناء عمليات التحكم في البئر؟",
+            options: {
+                A: "ضمان استمرارية العمليات ونقل المعلومات عن الاتجاهات لتحديد المشاكل المحتملة",
+                B: "إنه نموذج تنظيمي يجب إكماله وتسليمه إلى وكالة التنظيم المحلية",
+                C: "لا تعتبر إجراءات التسليم مهمة أثناء عمليات التحكم في البئر",
+                D: "السماح بإلقاء اللوم في حالة وقوع حادث أثناء عمليات قتل البئر"
+            }
+        },
+        2: {
+            question: "أي مما يلي هو الأقل أهمية بالنسبة للتسليم الجيد أثناء عمليات التحكم في البئر؟",
+            options: {
+                A: "يسمح بإلقاء اللوم في حالة وقوع حادث",
+                B: "يسمح بمناقشة أي مشاكل حدثت حتى هذه النقطة",
+                C: "يضمن أن الاتجاهات والمعلمات معروفة للطاقم الجديد",
+                D: "يضمن استمرار العمليات بأقل قدر من التعطيل"
+            }
+        },
+        3: {
+            question: "أي من العبارات التالية هي ممارسة تشغيل جيدة في قسم الحفر العلوي الذي لديه خطر من التكوينات الحاملة للغاز؟",
+            options: {
+                A: "لا تستخدم أبدًا عوامة أنابيب الحفر",
+                B: "الحفاظ على معدل اختراق عالي (ROP)",
+                C: "ضخ دوري للتحريك الخفيف",
+                D: "التحكم في معدل الاختراق"
+            }
+        },
+        4: {
+            question: "ما هي الممارسة الجيدة عند ملاحظة زيادة غاز الاتصال؟",
+            options: {
+                A: "التحكم في ROP للحفاظ على الحد الأدنى من أحداث غاز الاتصال في البئر في نفس الوقت",
+                B: "زيادة WOB و RPM لتقليل مستوى الغاز في الطين",
+                C: "تقليل لزوجة الطين لتقليل عملية السحب (swabbing)",
+                D: "زيادة لزوجة الطين"
+            }
+        },
+        5: {
+            question: "أي من الممارسات التالية يمكن أن تؤدي إلى تدفق خطر سطحي؟",
+            options: {
+                A: "الضخ خارج البئر",
+                B: "الحفاظ على البئر ممتلئًا بخزان رحلة مستمر",
+                C: "ضخ ملاط أسمنت بوقت انتقال قصير",
+                D: "عدم ملء البئر بشكل صحيح أثناء سحب الأنابيب"
+            }
+        },
+        6: {
+            question: "أثناء سحب الأنابيب إلى البئر عند 6,000 قدم، كان فحص التدفق إيجابيًا. إجراء الحفارة هو إغلاق البئر باستخدام إجراء الإغلاق الناعم (soft shut in). ما هو الإجراء الصحيح للإغلاق؟",
+            options: {
+                A: "افتح صمام HCR والخناق. أغلق BOP، ثبت صمام أمان بفتحة كاملة، أغلق صمام الأمان. أغلق الخناق",
+                B: "ثبت صمام أمان بفتحة كاملة، افتح صمام HCR والخناق. أغلق BOP. أغلق الخناق. أغلق صمام الأمان. سجل الضغط",
+                C: "ثبت صمام أمان بفتحة كاملة، أغلق صمام الأمان، افتح صمام HCR. أغلق BOP، أغلق الخناق",
+                D: "أغلق BOP، ثبت صمام أمان بفتحة كاملة، أغلق صمام الأمان. افتح الخناق، أغلق الخناق، سجل الضغط"
+            }
+        },
+        7: {
+            question: "أثناء سحب الأنابيب إلى البئر عند 6,000 قدم. كان فحص التدفق إيجابيًا. إجراء الحفارة هو إغلاق البئر باستخدام إجراء الإغلاق الصارم (hard shut in). ما هو الإجراء الصحيح للإغلاق؟",
+            options: {
+                A: "أغلق BOP، ثبت صمام أمان بفتحة كاملة، أغلق صمام الأمان، افتح صمام HCR، سجل الضغط",
+                B: "افتح صمام HCR والخناق، أغلق BOP، ثبت صمام أمان بفتحة كاملة، أغلق الخناق، سجل الضغط",
+                C: "ثبت صمام أمان بفتحة كاملة. أغلق صمام الأمان، أغلق BOP، افتح صمام HCR، سجل الضغط",
+                D: "ثبت صمام أمان بفتحة كاملة، افتح صمام HCR والخناق، أغلق BOP، أغلق صمام الأمان، سجل الضغط"
+            }
+        },
+        8: {
+            question: "من يملك صلاحية إغلاق البئر دون انتظار الإذن؟",
+            options: {
+                A: "مهندس الطين",
+                B: "مساعد الحفار",
+                C: "الحفار (Driller)",
+                D: "عامل الأرضية"
+            }
+        },
+        9: {
+            question: "لماذا يُعطى الحفار (Driller) صلاحية إغلاق البئر دون انتظار الإذن؟",
+            options: {
+                A: "يمكن للحفار مراقبة تدفق البئر للسماح بحد أدنى من الزيادة قدره 10 براميل",
+                B: "الحفار هو الشخص الوحيد المدرب على قتل البئر",
+                C: "الحفار لديه 'كلمة المرور' لتفعيل ضوابط BOP",
+                D: "يُمنح الحفار صلاحية لإغلاق البئر دون تأخير"
+            }
+        },
+        10: {
+            question: "ما هي الطريقة الأكثر أمانًا وموثوقية لمراقبة التسربات عبر BOP؟",
+            options: {
+                A: "التحقق بصريًا من خلال النظر عبر طاولة التدوير",
+                B: "المراقبة لتغيرات في مؤشر معدل التدفق",
+                C: "صف خزان الرحلة (trip tank) لمراقبة التدفق فوق BOP المغلق",
+                D: "أغلق المحول وراقب خط التهوية"
+            }
+        },
+        11: {
+            question: "تم إغلاق البئر والضغوط مستقرة. ما هي الخطوة الأولى التي يجب على الحفار اتخاذها؟",
+            options: {
+                A: "فحص ضغط أنبوب الحفر لتحديد ضغط التكوين",
+                B: "تسجيل زيادة الحوض",
+                C: "التحقق من أمان البئر (لا يوجد تسرب)",
+                D: "حساب وزن سائل القتل"
+            }
+        },
+        12: {
+            question: "ما هو السبب الرئيسي لتمرين الحوض (pit drill)؟",
+            options: {
+                A: "لمعرفة مدى سرعة الحفار في الاصطفاف على خزان الرحلة",
+                B: "لاختبار إنذارات الحوض والتدفق",
+                C: "للتأكد من أن الطاقم مدرب على قتل البئر",
+                D: "للتأكد من أن الطاقم قادر على التعرف على 'الكيك' والرد عليه بفعالية"
+            }
+        },
+        13: {
+            question: "ما هو السبب الرئيسي لتمرين الرحلة (trip drill)؟",
+            options: {
+                A: "لمعرفة مدى سرعة الحفار في الاصطفاف على مجمع الخنق",
+                B: "للتأكد من أن الطاقم قادر على التعرف على 'الكيك' والرد عليه بفعالية عند سحب الأنابيب",
+                C: "لاختبار إنذارات تدفق الحوض وخزان الرحلة",
+                D: "للتأكد من أن الطاقم مدرب على قتل البئر"
+            }
+        },
+        14: {
+            question: "ما هو سبب تمرين الخنق (Choke drill)؟",
+            options: {
+                A: "لمعرفة مدى سرعة الحفار في إغلاق الخناق في حالة الطوارئ",
+                B: "لمساعدة الطاقم على فهم كيفية تفاعل الخناق وضغوط البئر أثناء عملية القتل",
+                C: "لاختبار أن الخناق يعمل بشكل صحيح قبل الحفر خارج حذاء التبطين",
+                D: "للتأكد من أن الطاقم مدرب على الاصطفاف بشكل صحيح لعملية قتل البئر بالدوران العكسي"
+            }
+        },
+        15: {
+            question: "ما هي الاحتياطات التي يجب اتخاذها مع سائل الحفر قبل بدء عمليات السلك (wireline)؟",
+            options: {
+                A: "يجب تدوير سائل الحفر وتكييفه لأن البئر سيكون ثابتًا لفترة طويلة",
+                B: "نظرًا للقطر الصغير للأدوات، لا توجد احتياطات خاصة يجب اتخاذها",
+                C: "زيادة وزن الطين قبل بدء عملية السلك للتعويض عن فقدان ECD",
+                D: "يجب تحديد موقع حبوب مادة الدوران المفقودة (LCM) على عمق الاهتمام قبل بدء عمليات السلك"
+            }
+        },
+        16: {
+            question: "أي مما يلي ليس علامة تحذير على زيادة ضغط سائل التكوين؟",
+            options: {
+                A: "زيادة التجاويف عند الهزاز",
+                B: "زيادة كثافة الصخر الطيني",
+                C: "زيادة الغاز الخلفي",
+                D: "نقصان كثافة الصخر الطيني"
+            }
+        },
+        17: {
+            question: "ما هو 'فحص التدفق' (flow-check)؟",
+            options: {
+                A: "مراقبة عدد البراميل التي تتدفق مرة أخرى إلى الأحواض عند الاتصال",
+                B: "مراقبة البئر للتدفق بعد إيقاف المضخات",
+                C: "مراقبة عدد البراميل التي يستغرقها إبقاء البئر ممتلئًا بعد سحب 10 ستاندات",
+                D: "مراقبة الوقت الذي يستغرقه خط التدفق للنزول مرة أخرى إلى الأحواض عند الاتصال"
+            }
+        },
+        18: {
+            question: "متى من المرجح أن تقوم بإجراء فحص تدفق؟",
+            options: {
+                A: "بعد أن قام الحفار بزيادة الوزن على البت",
+                B: "بعد زيادة 5% في معدل الاختراق",
+                C: "بعد أخذ معدل تدوير بطيء",
+                D: "قبل سحب BHA عبر المكدس"
+            }
+        },
+        19: {
+            question: "متى من المرجح أن تقوم بإجراء فحص تدفق؟",
+            options: {
+                A: "بعد تشغيل BHA الماضي BOP",
+                B: "بعد أن قام الحفار بزيادة الوزن على البت",
+                C: "قبل تشغيل البت الماضي BOP",
+                D: "قبل البدء في السحب خارج البئر"
+            }
+        },
+        20: {
+            question: "أثناء سحب الأنابيب خارج البئر، لاحظ مساعد الحفار (AD) عدم صحة ملء البئر. بعد سحب خمس ستاندات، لم يأخذ البئر أي سائل من خزان الرحلة. كان من المفترض أن يأخذ ثلاثة براميل. أبلغ مساعد الحفار الحفار بالمشكلة. ما هو الإجراء الذي يجب على الحفار اتخاذه؟",
+            options: {
+                A: "توصيل كيلي أو الرأس وتدوير bottoms-up",
+                B: "إجراء فحص تدفق على الفور والإغلاق إذا لزم الأمر",
+                C: "إغلاق المحول والاصطفاف إلى مزيل الغازات",
+                D: "سحب خمس ستاندات أخرى وإعادة تقييم الوضع"
+            }
+        },
+        21: {
+            question: "أنت تحفر إلى الأمام وبدأت تواجه خسائر جزئية. أي مما يلي ليس إجراءً طبيعيًا يجب أخذه في الاعتبار؟",
+            options: {
+                A: "إضافة مادة دوران مفقودة (LCM) إلى الطين",
+                B: "التدوير بمعدل مضخة أبطأ لتقليل ECD",
+                C: "إغلاق البئر وتحويل نظام الطين إلى محلول ملحي",
+                D: "النظر في تغيير خصائص الطين لتقليل خسائر الاحتكاك أو الضغط الهيدروستاتيكي"
+            }
+        },
+        22: {
+            question: "أبلغ طاقم السلك (wireline) الحفار أنهم يسحبون أدوات السلك من البئر. بعد فترة قصيرة يرى الحفار زيادة في خزان الرحلة (trip tank). ما الذي حدث على الأرجح؟",
+            options: {
+                A: "الزيادة ناتجة عن تمدد الطين بسبب بقاء البئر ثابتًا لفترة طويلة أثناء السلك",
+                B: "ربما تم سحب أدوات السلك بسرعة كبيرة مما تسبب في السحب (swabbing)",
+                C: "قام مشغل السلك بضخ سائل حتى يمكن سحب السلك جافًا وتوفير بعض الوقت",
+                D: "لم يحدث شيء، من الطبيعي رؤية زيادة بسبب الإزاحة عند سحب أدوات السلك"
+            }
+        },
+        23: {
+            question: "يبدأ مهندس الطين تشغيل مزيل الغازات (degasser) والمزيل (desilter). ماذا سيحدث لمعدل التدفق من البئر؟",
+            options: {
+                A: "سيزيد معدل التدفق بعد دقيقتين إلى ثلاث دقائق",
+                B: "سينقص معدل التدفق بعد دقيقتين إلى ثلاث دقائق",
+                C: "سيبقى معدل التدفق كما هو"
+            }
+        },
+        24: {
+            question: "أي مؤشر 'كيك' يتم اكتشافه عادةً أولاً؟",
+            options: {
+                A: "زيادة في مستوى الحوض",
+                B: "زيادة في ضغط المضخة",
+                C: "زيادة في معدل التدفق",
+                D: "زيادة في خزان الرحلة"
+            }
+        },
+        25: {
+            question: "أي من الحالات التالية تجعل من الصعب اكتشاف 'كيك' باستخدام PVT؟",
+            options: {
+                A: "عندما تتجاوز أحواض التحكم في المواد الصلبة",
+                B: "عندما تسمح للطين بالفيضان فوق الهزازات",
+                C: "عندما تقلل إعدادات إنذار مستوى الحوض من 10 براميل إلى 5 براميل",
+                D: "عندما تحافظ على عمليات نقل نظام الطين النشط إلى الحد الأدنى أثناء الحفر"
+            }
+        },
+        26: {
+            question: "أثناء الحفر ووجود مستويات عالية من غاز الاتصال، حدث انقطاع في الطاقة يلغي القدرة على التدوير واللف. ما هو الإجراء الأكثر أمانًا الذي يجب اتخاذه؟",
+            options: {
+                A: "الاصطفاف على خزان الرحلة ومراقبة البئر",
+                B: "السحب إلى حذاء التبطين والعمل على الأنبوب صعودًا وهبوطًا",
+                C: "العمل على الأنبوب صعودًا وهبوطًا لمنع التصاق الأنبوب",
+                D: "التباعد والإغلاق ومراقبة أي تراكم للضغط في البئر"
+            }
+        },
+        27: {
+            question: "كانت نتائج فحص التدفق غير حاسمة بسبب الحجم الصغير من العائدات من البئر. ما هي الطريقة الأكثر دقة لتحديد ما إذا كان البئر يتدفق؟",
+            options: {
+                A: "سحب 5 ستاندات ومراقبة البئر لمعرفة ما إذا كان يمتلئ",
+                B: "إغلاق البئر والاصطفاف من خلال فاصل الطين والغاز ومراقبة التدفق عند الهزازات",
+                C: "الاصطفاف على خزان الرحلة ومراقبة الزيادات أو الخسائر",
+                D: "إغلاق المحول ومراقبة التدفق من خط التهوية"
+            }
+        },
+        28: {
+            question: "متى يجب مراقبة البئر باستخدام أدوات مستوى الحوض ومعدل التدفق؟",
+            options: {
+                A: "عند تشغيل الأنابيب في البئر",
+                B: "أثناء الاتصالات",
+                C: "فقط عند حفر ثقب مفتوح",
+                D: "في أي وقت يحتمل أن يفشل فيه حاجز"
+            }
+        },
+        29: {
+            question: "ما هي منطقة الانتقال (transition zone)؟",
+            options: {
+                A: "تغيير في التكوين من نفاذية عالية إلى نفاذية منخفضة",
+                B: "الموضع في الخزان حيث ينتقل الغاز إلى النفط أو الماء",
+                C: "العمق حيث تكون التكوينات قوية بما يكفي للإغلاق باستخدام BOP",
+                D: "جزء من التكوين حيث يتغير ضغط التكوين"
+            }
+        },
+        30: {
+            question: "عند الحفر في منطقة الانتقال إلى تكوين مضغوط بشكل غير طبيعي، ما هي التغييرات التي قد تتوقع رؤيتها في الطين؟",
+            options: {
+                A: "نقصان في رشح الطين",
+                B: "زيادة الملوحة في طين مائي عذب",
+                C: "زيادة وزن الطين",
+                D: "نقصان في محتوى الغاز"
+            }
+        },
+        31: {
+            question: "أي من الإجراءات التالية يجب اتخاذها عند الحفر عبر منطقة انتقال؟",
+            options: {
+                A: "تقليل الوزن على البت",
+                B: "تقليل عدد الدورات في الدقيقة (RPM)",
+                C: "زيادة الوقت بين فحوصات وزن الطين",
+                D: "زيادة وعي الطاقم بعلامات التحذير"
+            }
+        },
+        32: {
+            question: "لماذا من المهم فحص الطين أثناء تدفقه عبر الهزازات؟",
+            options: {
+                A: "يمكن أن يشير نوع وكمية القطع والتجاويف إلى ظروف البئر",
+                B: "يحدد نوع القطع وزن الطين المطلوب",
+                C: "يحدد نوع القطع ما إذا كان يجب تشغيل مزيل الغازات أو الطرد المركزي",
+                D: "كلما زادت القطع والتجاويف عند الهزاز، كان ذلك مؤشرًا على ممارسات حفر جيدة"
+            }
+        },
+        33: {
+            question: "ما هو السبب الرئيسي لقياس الوزن واللزوجة أثناء خروجها من البئر؟",
+            options: {
+                A: "يوفر معلومات حول آثار البئر على الطين",
+                B: "يخبر مهندس الطين متى يجب إجراء اختبارات الطين",
+                C: "يتأكد من اتباع برنامج الطين في خطة البئر",
+                D: "يضمن الامتثال لسياسة الشركة"
+            }
+        },
+        34: {
+            question: "لماذا من المهم لأفراد الطاقم إبلاغ الحفار فورًا إذا رأوا أي مشاكل محتملة في التحكم في البئر؟",
+            options: {
+                A: "لإبلاغ الحفار بزيادة معدل الاختراق",
+                B: "لمساعدة الحفار على تحديد 'الكيك' والعمل على تقليل حجمه",
+                C: "لإبلاغ الحفار بزيادة سرعة السحب",
+                D: "للسماح للحفار بتشغيل إنذارات الحوض والتدفق"
+            }
+        },
+        35: {
+            question: "ما هو التعريف الصحيح للمسامية (Porosity)؟",
+            options: {
+                A: "كمية الفراغ في الصخر معبرًا عنها بنسبة مئوية",
+                B: "ضغط السائل في الفراغ المسامي",
+                C: "نسبة الصخر الصلب في التكوين",
+                D: "قدرة سوائل التكوين على الحركة عبر الصخر"
+            }
+        },
+        36: {
+            question: "ما هي النسبة المئوية للفراغ في التكوين؟",
+            options: {
+                A: "النفاذية (Permeability)",
+                B: "تكوين ضغط منخفض",
+                C: "المسامية (Porosity)",
+                D: "كثافة الصخر الطيني"
+            }
+        },
+        37: {
+            question: "ما هو المصطلح الذي يعني 'تدفق غير مرغوب فيه لسوائل التكوين إلى داخل البئر'؟",
+            options: {
+                A: "تكوين مكسور",
+                B: "فقدان الدوران",
+                C: "كيك (Kick)",
+                D: "انفجار (Blowout)"
+            }
+        },
+        38: {
+            question: "ما هو التعريف الصحيح للنفاذية (Permeability)؟",
+            options: {
+                A: "كمية الصخر الصلب في التكوين",
+                B: "قدرة سوائل التكوين على الحركة عبر الصخر",
+                C: "ضغط السائل في الفراغ المسامي",
+                D: "كثافة سوائل التكوين"
+            }
+        },
+        39: {
+            question: "أي مما يلي لن يزيد من خطر 'الاندفاع' في البئر أثناء تشغيل التبطين؟",
+            options: {
+                A: "سرعة تشغيل أسرع",
+                B: "تباعد أضيق بين التبطين والبئر",
+                C: "طين ذو قوة جل عالية",
+                D: "درجة تبطين أقل"
+            }
+        },
+        40: {
+            question: "يتطلب برنامج الحفر اختبار سلامة التكوين (FIT) إلى 15.2 ppg وزن طين مكافئ (EMW) عند حذاء التبطين. عمق الحذاء = 4,000 قدم (TVD)؛ 5,500 قدم (MD). وزن الطين = 9.5 ppg. ما هو ضغط السطح المطلوب لاختبار الحذاء إلى 15.2 ppg EMW؟",
+            options: {
+                A: "1,186 psi",
+                B: "1,976 psi",
+                C: "2,382 psi",
+                D: "1,630 psi"
+            }
+        },
+        41: {
+            question: "على ورقة القتل (kill sheet)، لماذا نحسب حجم الثقب المفتوح من البت حتى الحذاء؟",
+            options: {
+                A: "لمعرفة متى دخل 'الكيك' إلى التبطين",
+                B: "إنها جزء من التمرين لحساب أحجام المرحلة في الحلقة",
+                C: "يستخدم هذا لتقدير الحد الأقصى لضغط التبطين",
+                D: "إنه مفيد لحساب مقدار تمدد الغاز الذي سيحدث"
+            }
+        },
+        42: {
+            question: "لقد عدت إلى حذاء العوامة بعد عملية التبطين والأسمنت. التعليمات هي تدوير البئر لتنظيف الطين قبل الحفر خارج الحذاء. لماذا يجب عليك مراقبة مستويات الحوض والتدفق أثناء هذه العملية؟",
+            options: {
+                A: "لمراقبة التمدد الحراري للأسمنت",
+                B: "لمراقبة الخسائر حيث يتم تنظيف أي أسمنت إضافي من البئر",
+                C: "للتحقق من أن حذاء العوامة لا يتسرب",
+                D: "لتحديد متى يكتمل التدوير من الأسفل (bottoms-up)"
+            }
+        },
+        43: {
+            question: "أثناء تدوير 'الكيك' الغازي داخل التبطين. يقترب ضغط التبطين من MAASP، فماذا يجب أن تفعل؟",
+            options: {
+                A: "إيقاف إجراءات القتل وتخفيف الضغط إلى MAASP وبالتالي تقليل خطر انهيار التكوين",
+                B: "الاستمرار في إجراءات القتل، ولكن استخدام التحكم التلقائي في MAASP لمنع انهيار التكوين",
+                C: "الاستمرار في إجراء القتل، ولكن فتح الخناق حسب الحاجة للحفاظ على ضغط التبطين مساويًا لـ MAASP وبالتالي المخاطرة بزيادة تدفق إضافي",
+                D: "الاستمرار في إجراء القتل الصحيح، حيث لن تتسبب زيادة MAASP في انهيار التكوين"
+            }
+        },
+        44: {
+            question: "أي من الممارسات التالية يجب مراعاتها عند إجراء اختبار التسرب (L.O.T.)؟",
+            options: {
+                A: "استخدام الماء دائمًا، والضخ بسرعة والإغلاق عندما يتغير اتجاه الضغط والحجم",
+                B: "تحديد معدل حقن أولاً باستخدام وزن الطين المعروف، والضخ بمعدل سريع",
+                C: "الضخ ببطء، واستخدام وزن الطين المعروف والإغلاق عندما يتغير اتجاه الضغط والحجم",
+                D: "إزاحة سلسلة الحفر إلى الزيت الأساسي أو الماء، وإغلاق البئر والضخ ببطء حتى يبدأ التكوين في أخذ السائل"
+            }
+        },
+        45: {
+            question: "ماذا سيحدث لـ MAASP إذا تم تقليل وزن الطين؟",
+            options: {
+                A: "سيزيد MAASP",
+                B: "سيبقى MAASP كما هو",
+                C: "سينقص MAASP"
+            }
+        },
+        46: {
+            question: "ضغط التسرب السطحي = 1000 psi عمق حذاء التبطين TVD = 7,500 وزن الطين = 11 ppg. ما هو ضغط الكسر عند حذاء التبطين؟",
+            options: {
+                A: "4200psi",
+                B: "6100psi",
+                C: "5425psi",
+                D: "5290psi"
+            }
+        },
+        47: {
+            question: "ما الذي يؤثر على MAASP؟",
+            options: {
+                A: "الحد الأقصى لضغط المضخة",
+                B: "قوة الجل للطين",
+                C: "وزن الطين في البئر",
+                D: "لزوجة الطين وفقدان الماء"
+            }
+        },
+        48: {
+            question: "أنت تحفر قسمًا من البئر بقدرة تحمل 'كيك' منخفضة. ما الإجراء الذي يمكن تنفيذه؟",
+            options: {
+                A: "زيادة لزوجة الطين لتقليل فرصة 'الكيك'",
+                B: "السحب بسرعة رحلة متزايدة وإجراء فحوصات تدفق لمدة 15 دقيقة في جميع فواصل الحفر",
+                C: "أخذ ضغوط معدل التدوير البطيء عند ضربات في الدقيقة (SPM) أسرع من المعتاد",
+                D: "زيادة اليقظة لمؤشرات 'الكيك'"
+            }
+        },
+        49: {
+            question: "أنت تحفر قسمًا من البئر مع نافذة تحمل 'كيك' تشير إلى أن الحد الأقصى لحجم 'الكيك' المسموح به أقل مما أظهرته الحفارة أنها يمكن أن تكتشفه وتغلقه بنجاح. ما الإجراء الذي يمكن اتخاذه؟",
+            options: {
+                A: "وضع سدادة أسمنتية وتغيير المسار الجانبي",
+                B: "النظر في وضع بطانة تبطين",
+                C: "سحب البت إلى حذاء التبطين بأسرع ما يمكن",
+                D: "الاستمرار في الحفر بحذر، فإن تحمل 'الكيك' سيتحسن مع العمق"
+            }
+        },
+        50: {
+            question: "أي مما يلي هو تعريف تحمل 'الكيك'؟",
+            options: {
+                A: "الحد الأقصى لحجم 'كيك' الغاز عند عمق معين يمكن إغلاقه بنجاح وتدويره خارجًا دون تجاوز ضغط كسر النقطة الضعيفة للسدود",
+                B: "الحد الأقصى لحجم 'كيك' الغاز لشدة 'كيك' معينة عند عمق معين يمكن إغلاقه بنجاح وتدويره خارجًا دون تجاوز ضغط كسر النقطة الضعيفة للسدود",
+                C: "الحد الأدنى لشدة 'الكيك'، لحجم 'كيك' غاز معين يمكن إغلاقه بنجاح وتدويره خارجًا دون تجاوز ضغط كسر النقطة الضعيفة للسدود"
+            }
+        },
+        51: {
+            question: "ما المقصود بتحمل 'كيك' قدره 25 برميلاً؟",
+            options: {
+                A: "بناءً على شدة 'كيك' مختارة، فإن 'كيك' غاز بحجم 25 برميلاً هو الحد الأقصى الذي يمكن إغلاقه وتدويره خارجًا دون كسر في النقطة الضعيفة من البئر",
+                B: "بناءً على شدة 'كيك' مختارة، فإن 'كيك' ماء مالح بحجم 25 برميلاً هو الحد الأقصى الذي يمكن إغلاقه ودفعه للخلف",
+                C: "بناءً على شدة 'كيك' مختارة، فإن 'كيك' ماء مالح بحجم 25 برميلاً هو الحد الأقصى الذي يمكن تدويره خارجًا دون انفجار التبطين على السطح",
+                D: "بناءً على شدة 'كيك' مختارة، فإن 'كيك' غاز بحجم 25 برميلاً هو الحد الأقصى الذي يمكن تدويره خارجًا دون انفجار التبطين على السطح"
+            }
+        },
+        52: {
+            question: "بعد تثبيت التبطين بالأسمنت، الخطة هي إزالة مكدس BOP. متى يعتبر البدء في هذه العملية آمنًا؟",
+            options: {
+                A: "عدد الدقائق الذي يساوي إنتاجية الأسمنت لكل كيس مضروبة في كثافة الأسمنت",
+                B: "عند اكتمال الوقت المخطط للانتظار على الأسمنت وكان البئر ثابتًا",
+                C: "لم يتدفق البئر لمدة 45 دقيقة منذ إزاحة الأسمنت إلى الموضع",
+                D: "وصل الأسمنت إلى قوة ضغط لا تقل عن 100 psi"
+            }
+        },
+        53: {
+            question: "لقد قمت بوضع بطانة تبطين وتدوير البئر الآن لتنظيف الطين قبل الحفر خارج حذاء البطانة. أين هي مسارات التسرب المحتملة التي تسمح لسائل التكوين بالدخول إلى البئر؟",
+            options: {
+                A: "سلسلة الحفر",
+                B: "غرفة فتح BOP",
+                C: "غرفة إغلاق BOP",
+                D: "صنبور البطانة أو حذاء متسرب"
+            }
+        },
+        54: {
+            question: "ما هو الاختبار الإيجابي (positive test)؟",
+            options: {
+                A: "اختبار على حاجز حيث يكون الضغط المطبق على جانب التكوين من الحاجز أكبر من الضغط على جانب السطح من الحاجز",
+                B: "اختبار على حاجز حيث يكون الضغط على جانب التكوين من الحاجز أقل من الضغط على جانب السطح من الحاجز",
+                C: "اختبار على حاجز حيث يكون الضغط على جانب التكوين من الحاجز مساويًا للضغط على جانب السطح من الحاجز"
+            }
+        },
+        55: {
+            question: "أنت تجري اختبارًا سلبيًا (API: Inflow Test). تم إزاحة سلسلة الحفر بسائل خفيف وتم تخفيف الضغط من أنبوب الحفر. كان الحجم الذي تدفق مرة أخرى من تخفيف الضغط السطحي لأنبوب الحفر أكبر بثلاث مرات مما هو محسوب. يعود الضغط على Standpipe عندما يتم إغلاق أنبوب الحفر. ما هو تقييمك للاختبار؟",
+            options: {
+                A: "لا توجد معلومات كافية لاتخاذ قرار مستنير",
+                B: "اختبار ناجح. الاستمرار في العمليات المخطط لها",
+                C: "اختبار فاشل: إغلاق البئر وإخطار الإدارة"
+            }
+        },
+        56: {
+            question: "إذا تم سحب 'كيك' أثناء السحب (tripping)، فأي نوع من الحواجز قد فشل؟",
+            options: {
+                A: "حاجز أساسي (هيدروستاتيكي)",
+                B: "حاجز ميكانيكي مؤقت",
+                C: "حاجز ميكانيكي دائم",
+                D: "حاجز الأسمنت"
+            }
+        },
+        57: {
+            question: "أي مما يلي ليس طريقة للتحقق من حاجز البئر؟",
+            options: {
+                A: "اختبار التدفق (اختبار سلبي)",
+                B: "تأكيد مجموعة الوزن (tagging)",
+                C: "اختبار التسرب",
+                D: "اختبار الضغط الإيجابي"
+            }
+        },
+        58: {
+            question: "ما هو الحد الأدنى لعدد الحواجز المطلوب عادةً وجودها في أي مرحلة من مراحل العمليات؟",
+            options: {
+                A: "ثلاثة",
+                B: "اثنان",
+                C: "أربعة",
+                D: "واحد"
+            }
+        },
+        59: {
+            question: "متى يجب مراقبة البئر باستخدام أدوات مستوى الحوض ومعدل التدفق؟",
+            options: {
+                A: "فقط عند حفر ثقب مفتوح",
+                B: "عند تشغيل الأنابيب في البئر",
+                C: "في أي وقت يحتمل أن يفشل فيه حاجز",
+                D: "أثناء الاتصالات"
+            }
+        },
+        60: {
+            question: "أي مما يلي لا يصنف كحاجز؟",
+            options: {
+                A: "ضغط الطين الهيدروستاتيكي",
+                B: "عوامة أنابيب الحفر",
+                C: "مكبس الأنبوب",
+                D: "صمام الأمان ذو الفتح الكامل"
+            }
+        }
+    };
+
+    function checkAnswers() {
+        const form = document.getElementById('quizForm');
+        for (let i = 1; i <= 60; i++) {
+            const questionName = `q${i}`;
+            const feedbackElement = document.getElementById(`feedback${i}`);
+            const selectedOption = form.elements[questionName] ? form.elements[questionName].value : null;
+
+            if (selectedOption) {
+                if (selectedOption === correctAnswers[questionName]) {
+                    feedbackElement.textContent = 'Correct!';
+                    feedbackElement.className = 'feedback correct';
+                } else {
+                    feedbackElement.textContent = `Incorrect. The correct answer is: ${correctAnswers[questionName]}`;
+                    feedbackElement.className = 'feedback incorrect';
+                }
+            } else {
+                feedbackElement.textContent = 'No answer selected.';
+                feedbackElement.className = 'feedback incorrect';
+            }
+        }
+    }
+
+    function showTranslation(qId) {
+        const popup = document.getElementById('translationPopup');
+        const popupContent = document.getElementById('popup-content');
+        const overlay = document.querySelector('.overlay');
+        const data = translations[qId];
+
+        if (data) {
+            let html = `<h3>Question ${qId}</h3><p>${data.question}</p>`;
+            html += '<h4>Options</h4>';
+            for (const key in data.options) {
+                html += `<p>${key}. ${data.options[key]}</p>`;
+            }
+            popupContent.innerHTML = html;
+            popup.style.display = 'block';
+            overlay.style.display = 'block';
+        }
+    }
+
+    function closeTranslation() {
+        document.getElementById('translationPopup').style.display = 'none';
+        document.querySelector('.overlay').style.display = 'none';
+    }
+</script>
+</body>
+</html>
